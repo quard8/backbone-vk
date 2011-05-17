@@ -6,6 +6,4 @@ $(document).ready(function(){
 
     me = new Profiles();
     me.fetch({uids : [1,2,3]});
-    
-
 });
