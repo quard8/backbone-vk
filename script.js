@@ -4,6 +4,28 @@ $(document).ready(function(){
         apiId: 2330252
     });
 
-    me = new Profiles();
-    me.fetch({uids : [1,2,3]});
+    function bootstrap() {
+        me = new Profiles();
+        me.fetchFriends({uid : 440358, fields : ["online", "photo_rec", "sex"], success : function(collection, response){
+            collection.getMales().forEach(function(profile){
+               console.log(profile.get('first_name'));
+            });
+        }});
+    }
+
+    VK.Auth.getLoginStatus(function(response){
+        if(response.session) {
+            bootstrap();
+        }
+        else {
+          VK.Auth.login(function(response){
+            bootstrap();
+          }, 2);
+        }
+    });
+
+
+
+
+    
 });
